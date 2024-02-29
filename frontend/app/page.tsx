@@ -61,13 +61,14 @@ export default function Home() {
       .post("https://mern-first-todo.onrender.com/post", { todo: todo })
       .then((res) => {
         console.log(res);
+        setReload(!reload);
       })
       .catch((err) => {
         console.log(err);
+        setReload(!reload);
       });
 
     setTodo("");
-    setReload(!reload);
   };
 
   // Update todos
@@ -78,7 +79,7 @@ export default function Home() {
     setUpdate(true);
     console.log(item);
   };
-
+  console.log(reload);
   const handleUpdateSubmit = () => {
     axios
       .put(`https://mern-first-todo.onrender.com/${todoId}`, { todo: todo })
