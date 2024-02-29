@@ -96,7 +96,7 @@ export default function Home() {
 
   const handleDelete = (item: any) => {
     axios
-      .delete(`https://mern-first-todo.onrender.com/${item._id}`)
+      .delete(`https://mern-first-todo.onrender.com/delete/${item._id}`)
       .then((res) => {
         setReload(!reload);
         console.log(res);
