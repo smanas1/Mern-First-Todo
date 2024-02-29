@@ -82,7 +82,9 @@ export default function Home() {
   console.log(reload);
   const handleUpdateSubmit = () => {
     axios
-      .put(`https://mern-first-todo.onrender.com/${todoId}`, { todo: todo })
+      .put(`https://mern-first-todo.onrender.com/update/${todoId}`, {
+        todo: todo,
+      })
       .then((res) => {
         setUpdate(false);
         setReload(!reload);
