@@ -23,6 +23,7 @@ export default function Home() {
   const [todoId, setTodoId] = React.useState("");
   const [update, setUpdate] = React.useState<boolean>(false);
   const [reload, setReload] = React.useState(true);
+  const [enter, setEnter] = React.useState(true);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -71,15 +72,40 @@ export default function Home() {
     setTodo("");
   };
 
+  // Press Enter
+  React.useEffect(() => {
+    const listener = (event: any) => {
+      if (event.key === "Enter" || event.key === "NumpadEnter") {
+        setEnter((enter) => !enter);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (update == false) {
+      handleSubmit();
+    }
+  }, [enter]);
+
   // Update todos
 
   const handleUpdate = (item: any) => {
     setTodo(item.todo);
     setTodoId(item._id);
     setUpdate(true);
-    console.log(item);
   };
-  console.log(reload);
+
+  React.useEffect(() => {
+    if (update == true) {
+      handleUpdateSubmit();
+    }
+  }, [enter]);
+
   const handleUpdateSubmit = () => {
     axios
       .put(`https://mern-first-todo.onrender.com/update/${todoId}`, {
@@ -102,8 +128,6 @@ export default function Home() {
         console.log(res);
       });
   };
-
-  console.log(todo);
 
   return (
     <>
