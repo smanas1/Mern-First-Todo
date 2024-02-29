@@ -48,7 +48,7 @@ export default function Home() {
 
   // Get All Todos
   React.useEffect(() => {
-    axios.get("http://localhost:8000/get").then((response) => {
+    axios.get("https://mern-first-todo.onrender.com/get").then((response) => {
       setTodos(response.data);
     });
     setTodo("");
@@ -58,7 +58,7 @@ export default function Home() {
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost:8000/post", { todo: todo })
+      .post("https://mern-first-todo.onrender.com/post", { todo: todo })
       .then((res) => {
         console.log(res);
       })
@@ -81,7 +81,7 @@ export default function Home() {
 
   const handleUpdateSubmit = () => {
     axios
-      .put(`http://localhost:8000/update/${todoId}`, { todo: todo })
+      .put(`https://mern-first-todo.onrender.com/${todoId}`, { todo: todo })
       .then((res) => {
         setUpdate(false);
         setReload(!reload);
@@ -92,10 +92,12 @@ export default function Home() {
   // Handle Delete Todo
 
   const handleDelete = (item: any) => {
-    axios.delete(`http://localhost:8000/delete/${item._id}`).then((res) => {
-      setReload(!reload);
-      console.log(res);
-    });
+    axios
+      .delete(`https://mern-first-todo.onrender.com/${item._id}`)
+      .then((res) => {
+        setReload(!reload);
+        console.log(res);
+      });
   };
 
   console.log(todo);
